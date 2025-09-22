@@ -61,7 +61,7 @@
 }
 
 .nav {
-    transition: all .3s ease-in-out
+    transition: all .3s ease-in-out;
     top: var(--header-h)
 }
 
@@ -172,8 +172,8 @@
     .nav {
         position: fixed;
         top: var(--header-h);
-        /* left: -100%;
-        transform: translateX(-50%); */
+        left: -100%;
+        transform: translateX(-50%);
         background-color: var(--mint);
         width: 100%;
         padding: 1rem 0 1.625rem;
