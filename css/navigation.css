@@ -173,10 +173,9 @@
         position: fixed;
         top: var(--header-h, 100px); /* fallback so it never becomes invalid */
         left: -100%;
-        right: 0;
-        transform: none; /* translateX(-50%); */
+        transform: translateX(-50%);
         background-color: var(--mint);
-        /* width: 100%; */
+        width: 100%;
         padding: var(--header-h) 0 1.625rem;
         border-bottom: .625rem solid var(--evergreen);
         z-index: 1
