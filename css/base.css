@@ -46,6 +46,9 @@
     --black: #1e241f;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     --pic-shadow: 0 1.25rem 2.5rem -.875rem rgba(0, 0, 0, 0.25)
+    --topbar-h: 30px;
+    --bottombar-h: 70px;
+    --header-h: calc(var(--topbar-h) + var(--bottombar-h));
 }
 
 * {
