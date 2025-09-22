@@ -166,6 +166,7 @@
     }
     .nav {
         position: fixed;
+        top: 100px; /* fallback */
         top: var(--header-h);
         left: -100%;
         transform: translateX(-50%);
