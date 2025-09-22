@@ -171,9 +171,9 @@
     }
     .nav {
         position: fixed;
-        top: 100px;
-        left: -100%;
-        transform: translateX(-50%);
+        top: var(--header-h);
+        /* left: -100%;
+        transform: translateX(-50%); */
         background-color: var(--mint);
         width: 100%;
         padding: 1rem 0 1.625rem;
