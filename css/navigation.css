@@ -178,7 +178,6 @@
         width: 100%;
         padding: var(--header-h) 0 1.625rem;
         border-bottom: .625rem solid var(--evergreen);
-        z-index: 1
     }
     .nav__list {
         flex-direction: column;
