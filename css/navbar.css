@@ -1,0 +1,198 @@
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: #a6a6a6 0 0 1px 0;
+    z-index: 1000
+}
+
+.top-bar {
+    background-color: var(--evergreen);
+    padding-right: 0.5rem;
+}
+
+.top-bar__content {
+    height: 30px;
+    padding: 0 2rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    column-gap: 20px;
+    font-size: 12px;
+    opacity: 85%;
+    color: var(--mint)
+}
+
+.icon {
+    margin-right: 3px;
+    opacity: 70%;
+    color: var(--mint)
+}
+
+.bottom-bar {
+    background-image: url(/images/asfalt-light.png)
+}
+
+.bottom-bar__content,
+.logo {
+    display: flex;
+    align-items: center
+}
+
+.bottom-bar__content {
+    padding: 0 2rem;
+    margin: 0 auto;
+    justify-content: space-between;
+    background-color: var(--mint)
+}
+
+.logo {
+    vertical-align: middle
+}
+
+.logo__img {
+    height: 70px;
+    width: 70px;
+}
+
+.nav {
+    transition: all .3s ease-in-out
+}
+
+.nav__list {
+    display: flex;
+    column-gap: 40px;
+    align-items: center;
+    justify-content: center
+}
+
+.nav__link {
+    color: rgba(84, 62, 49, .85);
+    transition: all .2s;
+    letter-spacing: .05em;
+    font-size: 1.125rem
+}
+
+.active {
+    color: var(--evergreen);
+    text-decoration: underline;
+    text-decoration-line: underline
+}
+
+.btn {
+    color: #fff;
+    background-color: var(--evergreen);
+    padding: .5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: .05em;
+    cursor: pointer;
+    transition: all .2s
+}
+
+.btn:hover {
+    background-color: var(--evergreen);
+    border: 1px solid var(--evergreen);
+    box-shadow: var(--shadow);
+    color: var(--mint);
+    text-decoration-line: none
+}
+
+.hamburger {
+    cursor: pointer;
+    display: none
+}
+
+.bar {
+    height: 2px;
+    width: 27px;
+    background-color: var(--evergreen);
+    margin: 5px 0;
+    opacity: .8;
+    transition: all .3s ease-in-out
+}
+
+.nav--open {
+    left: 50% !important
+}
+
+.hamburger--open .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg)
+}
+
+.hamburger--open .bar:nth-child(2) {
+    opacity: 0
+}
+
+.hamburger--open .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg)
+}
+
+#progress,
+#progress-value {
+    border-radius: 50%;
+    place-items: center
+}
+
+#progress {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 50px;
+    width: 50px;
+    display: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+    cursor: pointer;
+    z-index: 1000
+}
+
+#progress-value {
+    display: block;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+    background-color: var(--mint);
+    display: grid;
+    font-size: 1.125rem;
+    color: var(--brown)
+}
+
+@media screen and (max-width:1112px) {
+    .bottom-bar__content,
+    .top-bar__content {
+        padding: 0 1rem
+    }
+    .nav {
+        position: fixed;
+        top: var(--header-h);
+        left: -100%;
+        transform: translateX(-50%);
+        background-color: var(--mint);
+        width: 100%;
+        padding: var(--header-h) 0 1.625rem;
+        border-bottom: .625rem solid var(--evergreen)
+    }
+    .nav__list {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1.25rem
+    }
+    .btn,
+    .nav__link {
+        font-size: 1.125rem
+    }
+    .btn {
+        padding: .5rem 1rem
+    }
+    .hamburger {
+        display: block
+    }
+}
+
+@media (max-width:360px) {
+    .top-bar__content {
+        font-size: .625rem
+    }
+}
