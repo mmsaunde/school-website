@@ -177,7 +177,7 @@
         transform: none; /* translateX(-50%); */
         background-color: var(--mint);
         /* width: 100%; */
-        padding: 1rem 0 1.625rem;
+        padding: var(--header-h) 0 1.625rem;
         border-bottom: .625rem solid var(--evergreen);
         z-index: 1
     }
