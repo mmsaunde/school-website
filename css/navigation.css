@@ -2,12 +2,13 @@
     position: fixed;
     width: 100%;
     top: 0;
-    box-shadow: #a6a6a6 0 0 2px 0;
+    box-shadow: #a6a6a6 0 0 1px 0;
     z-index: 1000
 }
 
 .top-bar {
-    background-color: var(--evergreen)
+    background-color: var(--evergreen);
+    padding-right: 0.5rem;
 }
 
 .top-bar__content {
@@ -40,7 +41,6 @@
 }
 
 .bottom-bar__content {
-    min-height: 100px;
     padding: 0 2rem;
     margin: 0 auto;
     justify-content: space-between;
@@ -52,10 +52,8 @@
 }
 
 .logo__img {
-    height: 100px;
-    width: 100px;
-    padding: 10px 0;
-    transform: rotateY("15deg")
+    height: 70px;
+    width: 70px;
 }
 
 .nav {
@@ -168,10 +166,10 @@
     }
     .nav {
         position: fixed;
-        top: 126px;
+        top: var(--header-h);
         left: -100%;
         transform: translateX(-50%);
-        background-color: #fff;
+        background-color: var(--mint);
         width: 100%;
         padding: 1rem 0 1.625rem;
         border-bottom: .625rem solid var(--evergreen)
