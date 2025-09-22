@@ -9,8 +9,6 @@
 .top-bar {
     background-color: var(--evergreen);
     padding-right: 0.5rem;
-    position: relative;
-    z-index: 2
 }
 
 .top-bar__content {
@@ -33,9 +31,7 @@
 }
 
 .bottom-bar {
-    background-image: url(/images/asfalt-light.png);
-    position: relative;
-    z-index: 2
+    background-image: url(/images/asfalt-light.png)
 }
 
 .bottom-bar__content,
@@ -61,8 +57,7 @@
 }
 
 .nav {
-    transition: all .3s ease-in-out;
-    top: var(--header-h)
+    transition: all .3s ease-in-out
 }
 
 .nav__list {
@@ -177,8 +172,7 @@
         background-color: var(--mint);
         width: 100%;
         padding: 1rem 0 1.625rem;
-        border-bottom: .625rem solid var(--evergreen);
-        z-index: 1
+        border-bottom: .625rem solid var(--evergreen)
     }
     .nav__list {
         flex-direction: column;
