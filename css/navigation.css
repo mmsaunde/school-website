@@ -19,12 +19,14 @@
     align-items: center;
     column-gap: 20px;
     font-size: 12px;
-    color: rgba(255, 255, 255, .35)
+    opacity: 85%;
+    color: var(--mint)
 }
 
 .icon {
     margin-right: 3px;
-    color: rgba(255, 255, 255, .17)
+    opacity: 70%;
+    color: var(--mint)
 }
 
 .bottom-bar {
