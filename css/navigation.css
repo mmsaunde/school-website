@@ -9,6 +9,8 @@
 .top-bar {
     background-color: var(--evergreen);
     padding-right: 0.5rem;
+    position: relative;
+    z-index: 2
 }
 
 .top-bar__content {
@@ -31,7 +33,9 @@
 }
 
 .bottom-bar {
-    background-image: url(/images/asfalt-light.png)
+    background-image: url(/images/asfalt-light.png);
+    position: relative;
+    z-index: 2
 }
 
 .bottom-bar__content,
@@ -172,7 +176,8 @@
         background-color: var(--mint);
         width: 100%;
         padding: 1rem 0 1.625rem;
-        border-bottom: .625rem solid var(--evergreen)
+        border-bottom: .625rem solid var(--evergreen);
+        z-index: 1
     }
     .nav__list {
         flex-direction: column;
