@@ -75,11 +75,16 @@
 }
 
 .bottom-footer,
-.bottom-footer__content,
 .content-row__item {
     display: flex;
     justify-content: center;
     align-items: center
+}
+
+.bottom-footer__content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .bottom-footer {
