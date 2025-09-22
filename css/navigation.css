@@ -6,6 +6,11 @@
     z-index: 1000
 }
 
+.top-bar,
+.bottom-bar {
+  position: relative;
+  z-index: 3;           /* above the nav */
+}
 .top-bar {
     background-color: var(--evergreen);
     padding-right: 0.5rem;
@@ -166,14 +171,15 @@
     }
     .nav {
         position: fixed;
-        top: 100px; /* fallback */
-        top: var(--header-h);
+        top: var(--header-h, 100px); /* fallback so it never becomes invalid */
         left: -100%;
-        transform: translateX(-50%);
+        right: 0;
+        transform: none; /* translateX(-50%); */
         background-color: var(--mint);
-        width: 100%;
+        /* width: 100%; */
         padding: 1rem 0 1.625rem;
-        border-bottom: .625rem solid var(--evergreen)
+        border-bottom: .625rem solid var(--evergreen);
+        z-index: 1
     }
     .nav__list {
         flex-direction: column;
