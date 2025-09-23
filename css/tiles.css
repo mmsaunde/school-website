@@ -57,7 +57,7 @@ dialog {
     }
     .tile {
         /* width: 200px; */
-        width: calc(33% - 1rem);
+        width: calc(25% - 1rem);
         aspect-ratio: 4/3
     }
 }
@@ -65,7 +65,7 @@ dialog {
 @media screen and (min-width:1200px) {
     .tile {
         /* width: 300px; */
-        width: calc(25% - 1rem);
+        width: calc(33% - 1rem);
         aspect-ratio: 4/3
     }
 }
