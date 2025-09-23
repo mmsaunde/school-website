@@ -8,7 +8,7 @@
 
 .top-bar {
     background-color: var(--evergreen);
-    padding-right: 0.5rem
+    padding-right: 0.5rem;
 }
 
 .top-bar__content {
@@ -31,7 +31,7 @@
 }
 
 .bottom-bar {
-    background-image: url(/images/asfalt-light.png);
+    background-image: url(/images/asfalt-light.png)
 }
 
 .bottom-bar__content,
