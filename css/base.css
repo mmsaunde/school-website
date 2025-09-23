@@ -185,7 +185,7 @@ a:hover {
     text-decoration: underline
 }
 
-.btn,
+/* .btn,
 button {
     display: inline-block;
     font-family: "Poppins", sans-serif;
@@ -220,6 +220,26 @@ button[type=submit]:hover {
 .btn-secondary:hover {
     background-color: var(--grey);
     color: var(--brown)
+} */
+
+.btn {
+    color: #fff;
+    background-color: var(--evergreen);
+    padding: .5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: .05em;
+    cursor: pointer;
+    transition: all .2s
+}
+
+.btn:hover {
+    box-shadow: var(--shadow);
+    color: var(--mint);
+    transform: scale(.99);
+    text-decoration-line: none
 }
 
 .btn-close-inside {
