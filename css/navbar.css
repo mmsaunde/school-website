@@ -12,7 +12,7 @@
 }
 
 .top-bar__content {
-    height: var(--topbar-h);
+    height: 30px;
     padding: 0 2rem;
     margin: 0 auto;
     display: flex;
