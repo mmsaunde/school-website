@@ -168,7 +168,6 @@
     }
     .nav {
         position: fixed;
-        margin-top: 10px;
         top: 100px;
         left: -100%;
         transform: translateX(-50%);
