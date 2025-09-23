@@ -56,16 +56,14 @@ dialog {
         gap: 2rem
     }
     .tile {
-        /* width: 200px; */
-        width: calc(25% - 1rem);
+        width: 200px;
         aspect-ratio: 5/3
     }
 }
 
 @media screen and (min-width:1200px) {
     .tile {
-        /* width: 300px; */
-        width: calc(33% - 1rem);
+        width: 300px;
         aspect-ratio: 5/3
     }
 }
