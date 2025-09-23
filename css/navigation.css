@@ -33,7 +33,6 @@
 }
 
 .bottom-bar__content {
-    min-height: 100px;
     padding: 0 2rem;
     margin: 0 auto;  
     display: flex;
@@ -51,8 +50,6 @@
 .logo__img {
     height: 70px;
     width: 70px;
-
-
 }
 
 .nav {
@@ -65,10 +62,6 @@
     align-items: center;
     justify-content: center
 }
-
-
-
-
 
 .nav__link {
     color: rgba(84, 62, 49, .85);
@@ -87,7 +80,6 @@
     text-decoration: underline;
     text-decoration-line: underline
 }
-
 
 .btn {
     color: #fff;
