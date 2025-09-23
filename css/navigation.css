@@ -168,7 +168,7 @@
     }
     .nav {
         position: fixed;
-        top: var(--header-h);
+        top: 100px;
         left: -100%;
         transform: translateX(-50%);
         background-color: var(--mint);
