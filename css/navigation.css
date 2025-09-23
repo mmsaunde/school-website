@@ -82,7 +82,7 @@
     text-decoration-line: underline
 }
 
-.btn {
+/* .btn {
     color: #fff;
     background-color: var(--evergreen);
     padding: .5rem 1.25rem;
@@ -101,7 +101,7 @@
     box-shadow: var(--shadow);
     color: var(--mint);
     text-decoration-line: none
-}
+} */
 
 .hamburger {
     cursor: pointer;
