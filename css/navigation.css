@@ -4,7 +4,8 @@
     width: 100%;
     top: 0;
     box-shadow: #a6a6a6 0 0 1px 0;
-    z-index: 1000
+    z-index: 1000;
+    isolation: isolate; 
 }
 
 .top-bar {
@@ -29,6 +30,12 @@
     color: rgba(var(--mint), .7)
 }
 
+.bottom-bar,
+.bottom-bar__content {
+  position: relative; 
+  z-index: 2; 
+}
+
 .bottom-bar {
     background-image: url(/images/asfalt-light.png)
 }
@@ -46,6 +53,8 @@
     vertical-align: middle;
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 1  
 }
 
 .logo__img {
@@ -54,7 +63,9 @@
 }
 
 .nav {
-    transition: all .3s ease-in-out
+    transition: all .3s ease-in-out;
+    position: relative;
+    z-index: 3
 }
 
 .nav__list {
@@ -68,40 +79,20 @@
     color: rgba(84, 62, 49, .85);
     transition: all .2s;
     letter-spacing: .05em;
-    font-size: 1.125rem
+    font-size: 1.125rem;
+    pointer-events: auto;
 }
 
-  .nav__link:hover,
-  .nav__link:focus {
+.nav__link:hover,
+.nav__link:focus {
     color: var(--evergreen)
-  }
+}
 
 .active {
     color: var(--evergreen);
     text-decoration: underline;
     text-decoration-line: underline
 }
-
-/* .btn {
-    color: #fff;
-    background-color: var(--evergreen);
-    padding: .5rem 1.25rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    font-weight: 400;
-    letter-spacing: .05em;
-    cursor: pointer;
-    transition: all .2s
-}
-
-.btn:hover {
-    background-color: var(--evergreen);
-    border: 1px solid var(--evergreen);
-    box-shadow: var(--shadow);
-    color: var(--mint);
-    text-decoration-line: none
-} */
 
 .hamburger {
     cursor: pointer;
