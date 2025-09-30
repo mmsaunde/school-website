@@ -23,16 +23,29 @@ document.addEventListener("includes-loaded", function () {
     window.onscroll = calcScrollValue;
     window.onload = calcScrollValue;
   
+
     // Highlight Active Page
     const navLinkEls = document.querySelectorAll('.nav__link');
-    const windowPathName = window.location.pathname;
-  
+    let windowPathName = window.location.pathname;
+
+    // Normalize root "/" and "/index.html" to the same
+    if (windowPathName === '/' || windowPathName === '/index.html') {
+      windowPathName = '/index.html';
+    }
+
     navLinkEls.forEach(navLinkEl => {
-      const navLinkPathName = new URL(navLinkEl.href).pathname;
-      if ((windowPathName === navLinkPathName) || (windowPathName === '/index.html' && navLinkPathName === '/')) {
+      let navLinkPathName = new URL(navLinkEl.href).pathname;
+
+      // Normalize for comparison
+      if (navLinkPathName === '/' || navLinkPathName === '/index.html') {
+        navLinkPathName = '/index.html';
+      }
+
+      if (windowPathName === navLinkPathName) {
         navLinkEl.classList.add('active');
       }
     });
+
   
     // Open & Close Hamburger
     const navEl = document.querySelector('.nav');
@@ -52,168 +65,238 @@ document.addEventListener("includes-loaded", function () {
         });
       });
     }
-  
-    // Switch Tab and Content
-    let filterBtns = document.querySelectorAll('.filter-btn');
-    let tabItems = document.querySelectorAll('.tab-item');
-  
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-  
-        let selectedTab = this.getAttribute('data-tab');
-        tabItems.forEach(tab => tab.classList.remove('select_tab'));
-  
-        let activeTab = document.querySelector(`.tab-item.${selectedTab}`);
-        if (activeTab) {
-          activeTab.classList.add('select_tab');
-        }
-      });
-    });
-  
-    function updateTabHeight() {
-      let activeTab = document.querySelector('.tab-item.select_tab');
-      if (activeTab) {
-        document.querySelector('.tab-filter-item-container').style.height = activeTab.scrollHeight + 'px';
-      }
-    }
-  
-    const observer = new MutationObserver(updateTabHeight);
-    tabItems.forEach(tab => observer.observe(tab, { attributes: true }));
-    updateTabHeight();
-  
-    // Validate Form Fields
-    const forms = document.querySelectorAll('.needs-validation');
-    Array.prototype.slice.call(forms).forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
+
+  // ---------- Validation ----------
+  const validatedForms = document.querySelectorAll('.needs-validation');
+  validatedForms.forEach(form => {
+    form.addEventListener('submit', (evt) => {
+      if (!form.checkValidity()) {
+        evt.preventDefault();
+        evt.stopPropagation();
         form.classList.add('was-validated');
-      }, false);
-    });
-  
-    // Write Form Data to Spreadsheet
-    const formIds = [
-      "reviewForm",
-      "feedbackForm",
-      "mailingListForm",
-      "applicationForm",
-      "partnershipForm",
-      "giftCardForm",
-      "websiteIssueForm"
-    ];
-  
-    formIds.forEach(formId => {
-      const form = document.getElementById(formId);
-      if (form) {
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          const formData = new FormData(this);
-  
-          fetch("https://script.google.com/macros/s/AKfycbyG2lTWEVJWUrWLWWUKAZUjYuKG9uIr4fKCbIXkCty12j13zGnsqrrI-VYrqwGe6geu/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData)
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.redirect) window.location.href = data.redirect;
-            })
-            .catch(error => {
-              console.error("Error:", error);
-              alert("There was an issue submitting your form.");
-            });
+      }
+    }, false);
+  });
+
+  // ---------- Submit handling with lock + disable + "Sending..." ----------
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbx5yBZAcCTnm_Wi9PxKFI2DExjUzFMTlIi_BolH3IVNyFW0dl6C3WwHJHYSxTNBE4O4/exec";
+  const SUCCESS_URL = "/success.html";
+  const formIds = ["feedbackForm", "partnershipForm"];
+
+  formIds.forEach((formId) => {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    form.addEventListener('submit', async (event) => {
+      if (!form.checkValidity()) return; // validation handler above will block
+      event.preventDefault();
+
+      // Prevent double-submits
+      if (form.dataset.submitting === "true") return;
+      form.dataset.submitting = "true";
+
+      const submitBtn = form.querySelector('[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : null;
+
+      const setDisabled = (on) => {
+        Array.from(form.elements).forEach(el => { try { el.disabled = on; } catch(e){} });
+        if (submitBtn) {
+          submitBtn.textContent = on ? 'Sending...' : (originalBtnText || 'Submit Form');
+          submitBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+        }
+      };
+
+      try {
+        // IMPORTANT: build FormData BEFORE disabling controls
+        const formData = new FormData(form);
+        const body = new URLSearchParams(formData);
+
+        // Now lock the UI
+        setDisabled(true);
+
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body
         });
+
+        if (res.ok) {
+          // Hard redirect to success page (no alerts), same as your previous behavior
+          window.location.assign(SUCCESS_URL);
+          return;
+        } else {
+          console.error("Submission failed with status:", res.status);
+          setDisabled(false);
+          delete form.dataset.submitting;
+        }
+      } catch (err) {
+        console.error("Submission error:", err);
+        setDisabled(false);
+        delete form.dataset.submitting;
       }
     });
-  
-// Show Dialog Elements
-const triggers = [
-  // Forms
-    { trigger: "reviewTrigger", dialog: "reviewDialog" },
+  });
+
+  // ---------- Dialog open/close wiring ----------
+  const triggers = [
     { trigger: "feedbackTrigger", dialog: "feedbackDialog" },
-    { trigger: "mailingListTrigger", dialog: "mailingListDialog" },
-    { trigger: "applicationTrigger", dialog: "applicationDialog" },
-    { trigger: "partnershipTrigger", dialog: "partnershipDialog" },
-    { trigger: "giftCardTrigger", dialog: "giftCardDialog" },
-    { trigger: "websiteIssueTrigger", dialog: "websiteIssueDialog" }
-    ];
-  
-    triggers.forEach(({ trigger, dialog }) => {
-        const triggerElement = document.getElementById(trigger);
-        const dialogElement = document.getElementById(dialog);
-        if (triggerElement && dialogElement) {
-        triggerElement.addEventListener("click", function (event) {
-            event.preventDefault();
-            dialogElement.showModal();
-        });
-        dialogElement.addEventListener("click", function (event) {
-            if (event.target === dialogElement) {
-            dialogElement.close();
-            }
-        });
-        }
+    { trigger: "partnershipTrigger", dialog: "partnershipDialog" }
+  ];
+
+  triggers.forEach(({ trigger, dialog }) => {
+    const triggerEl = document.getElementById(trigger);
+    const dialogEl = document.getElementById(dialog);
+    if (!triggerEl || !dialogEl) return;
+
+    triggerEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      dialogEl.showModal();
     });
+
+    dialogEl.addEventListener('click', (e) => {
+      if (e.target === dialogEl) dialogEl.close();
+    });
+
+    dialogEl.addEventListener('close', () => {
+      const form = dialogEl.querySelector('form');
+      if (!form) return;
+      form.classList.remove('was-validated');
+      Array.from(form.elements).forEach(el => { try { el.disabled = false; } catch(e){} });
+      delete form.dataset.submitting;
+      const submitBtn = form.querySelector('[type="submit"]');
+      if (submitBtn) {
+        submitBtn.removeAttribute('aria-busy');
+        // (optional) reset text if dialog was closed mid-send
+        // submitBtn.textContent = 'Submit Form';
+      }
+    });
+  });
 });
-  
-  // Slideshow
-  let testSlide = document.querySelectorAll('.slide');
-  let dots = document.querySelectorAll('.dot');
-  var counter = 0;
-  
-  function switchTest(currentTest) {
-    var testId = currentTest.getAttribute('attr');
-    if (testId == counter) return;
-  
-    if (testId > counter) {
-      testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
-    } else {
-      testSlide[counter].style.animation = 'prev1 0.5s ease-in forwards';
-    }
-  
-    counter = testId;
-  
-    if (testId > counter) {
-      testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
-    } else {
-      testSlide[counter].style.animation = 'prev2 0.5s ease-in forwards';
-    }
-  
-    indicators();
-  }
-  
-  function indicators() {
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[counter].classList.add('active');
-  }
-  
-  function slideNext() {
-    testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
-    if (counter >= testSlide.length - 1) {
-      counter = 0;
-    } else {
-      counter++;
-    }
-    testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
-    indicators();
-  }
-  
-  function autoSliding() {
-    deleteInterval = setInterval(timer, 5000);
-    function timer() {
-      slideNext();
-      indicators();
-    }
-  }
-  autoSliding();
-  
-  const carousel = document.querySelector('.indicators');
-  carousel.addEventListener('mouseover', pause);
-  function pause() {
-    clearInterval(deleteInterval);
-  }
-  carousel.addEventListener('mouseout', autoSliding);
-  
+
+// Lightbox
+     (function() {
+        const overlay = document.getElementById('lightbox');
+        const imgEl   = document.getElementById('lbImage');
+        const counter = document.getElementById('lbCounter');
+        const btnPrev = overlay.querySelector('.lb-prev');
+        const btnNext = overlay.querySelector('.lb-next');
+        const btnClose= overlay.querySelector('.lb-close');
+
+        let gallery = [];   // array of URLs
+        let index = 0;      // current index (0-based)
+        let lastFocus = null;
+
+        // Build gallery from a trigger's data attributes
+        function buildGallery(trigger) {
+          const prefix = trigger.getAttribute('data-prefix');
+          const ext    = trigger.getAttribute('data-ext') || '.jpeg';
+          const count  = parseInt(trigger.getAttribute('data-count') || '0', 10);
+
+          const list = [];
+          for (let i = 1; i <= count; i++) {
+            list.push(`${prefix}${i}${ext}`);
+          }
+          return list;
+        }
+
+        // Open lightbox with specific gallery and starting index
+        function openLightbox(list, startIndex = 0) {
+          if (!list || !list.length) return;
+          gallery = list.slice();
+          index = Math.max(0, Math.min(startIndex, gallery.length - 1));
+          lastFocus = document.activeElement;
+          document.body.style.overflow = 'hidden';
+          overlay.classList.add('lb-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          render();
+          // focus close for accessibility
+          btnClose.focus();
+          // hide arrows if single image
+          const one = gallery.length === 1;
+          btnPrev.classList.toggle('lb-hidden', one);
+          btnNext.classList.toggle('lb-hidden', one);
+        }
+
+        function closeLightbox() {
+          overlay.classList.remove('lb-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          // clear image to free memory
+          imgEl.src = '';
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        function render() {
+          const src = gallery[index];
+          imgEl.src = src;
+          imgEl.alt = `Image ${index + 1} of ${gallery.length}`;
+          counter.textContent = `${index + 1} / ${gallery.length}`;
+          // Preload neighbors for speed
+          preload(index + 1);
+          preload(index - 1);
+        }
+
+        function preload(i) {
+          if (i < 0 || i >= gallery.length) return;
+          const pre = new Image();
+          pre.src = gallery[i];
+        }
+
+        function next() {
+          index = (index + 1) % gallery.length;
+          render();
+        }
+        function prev() {
+          index = (index - 1 + gallery.length) % gallery.length;
+          render();
+        }
+
+        // Click bindings on tiles
+        document.querySelectorAll('.lb-trigger').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const list = buildGallery(el);
+            openLightbox(list, 0);
+          });
+        });
+
+        // Controls
+        btnNext.addEventListener('click', next);
+        btnPrev.addEventListener('click', prev);
+        btnClose.addEventListener('click', closeLightbox);
+
+        // Click on backdrop closes (but ignore clicks on stage or controls)
+        overlay.addEventListener('click', (e) => {
+          const stage = e.target.closest('.lb-stage');
+          const closeBtn = e.target.closest('.lb-close');
+          const arrow = e.target.closest('.lb-arrow');
+          if (!stage && !closeBtn && !arrow) closeLightbox();
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+          if (!overlay.classList.contains('lb-open')) return;
+          switch (e.key) {
+            case 'Escape': closeLightbox(); break;
+            case 'ArrowRight': next(); break;
+            case 'ArrowLeft': prev(); break;
+          }
+        });
+
+        // Touch swipe
+        let touchStartX = null;
+        overlay.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+          }
+        }, {passive: true});
+        overlay.addEventListener('touchend', (e) => {
+          if (touchStartX === null) return;
+          const endX = (e.changedTouches && e.changedTouches[0]?.clientX) || touchStartX;
+          const dx = endX - touchStartX;
+          const SWIPE_MIN = 40; // px
+          if (dx > SWIPE_MIN) { prev(); }
+          else if (dx < -SWIPE_MIN) { next(); }
+          touchStartX = null;
+        });
+      })();
