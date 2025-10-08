@@ -1,147 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contact Me</title>
-        <link rel="stylesheet" href="/css/styles.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Me</title>
 
-    </head>
-    <body>
+    <!-- Bootstrap CSS (you were missing this) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-r9W8H0W0qWyi0KkpcxKQvANz0M67HIIe8sA2m6W1g0b6Q8rXQYkC9hD9FQ2wJ8P5c8cwj2q8+9nX9GQ4e9Qw2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!---------- INCLUDING NAVBAR.HTML ---------->
-        <div data-include="navbar.html"></div>
+    <!-- Your styles -->
+    <link rel="stylesheet" href="/css/styles.min.css">
 
-        <!---------- START OF TILES ---------->
-        <main>
-            <div class="container-hero">
-                <h1>Get in touch</h1>
-                <h5>Choose a tile below to get in touch with me.</h5>
-            </div>
-            <div class="container">
-                <div class="tile-container">
-                    <a href="#" class="tile" id="feedbackTrigger">
-                        <i class="fa-solid fa-comment"></i>
-                        <p>Contact Me</p>
-                    </a>
-                    <a href="#" class="tile" id="partnershipTrigger">
-                        <i class="fa-solid fa-handshake-simple"></i>
-                        <p>Partner With Me</p>
-                    </a>
-                    <a href="/files/Marissa-Saunders-Resume.pdf" class="tile" download>
-                        <i class="fa-solid fa-download"></i>
-                        <p>Get My Resume</p>
-                    </a>
-                </div>
-            </div>    
-        </main>
-        <!---------- END OF TILES ---------->
-        
-        <!---------- START OF FORM CONTENT ---------->
-        <!------------ Contact Me Form ------------>
-        <dialog id="feedbackDialog" >
-            <form id="feedbackForm" class="needs-validation" novalidate>
-                <h5 class="no-bottom-margin">Leave a comment</h5>
-                <small class="text-danger">All fields are required</small>
-                <input type="hidden" name="formType" value="feedbackForm">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
 
-                <!-- Name -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="feedback-name" name="feedback-name" placeholder="Enter full name" required>
-                </div>
+    <!---------- INCLUDING NAVBAR.HTML ---------->
+    <div data-include="navbar.html"></div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="feedback-email" name="feedback-email" placeholder="Enter email" required>
-                </div>
+    <!---------- START OF MAIN CONTENT ---------->
+    <main>
+      <div class="container-hero">
+        <h1>Get in touch</h1>
+        <h2>Choose a tile below to get in touch with me.</h2>
+      </div>
+      <div class="container">
+        <div class="tile-container">
 
-                <!-- Comments -->
-                <div class="mb-3">
-                    <label for="comments" class="form-label">Comments<span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="comments" name="comments" rows="4" placeholder="What's on your mind" required></textarea>
-                </div>
-
-                <!-- Can we contact you? -->
-                <div class="mb-3">
-                    <label class="form-label">Can we contact you about your  comments?<span class="text-danger">*</span></label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            Yes
-                            <input type="radio" name="contactChoice" value="Yes" id="contact-yes" required>
-                        </label>
-                        <label class="radio-option">
-                            No
-                            <input type="radio" name="contactChoice" value="No" id="contact-no">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Submit Form</button>
-
-            </form>
-        </dialog>
-
-        <!------------ Partnership Form ------------>
-        <dialog id="partnershipDialog">
-            <form id="partnershipForm" class="needs-validation" novalidate>
-                <h5 class="no-bottom-margin">Partnership Proposal</h5>
-                <small class="text-danger">All fields are required</small>
-                <input type="hidden" name="formType" value="partnershipForm">
-
-                <!-- Company Name -->
-                <div class="mb-3">
-                    <label for="companyName" class="form-label">Company name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter company name" required>
-                </div>
-
-                <!-- Name -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="partnership-name" name="partnership-name" placeholder="Enter full name" required>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="partnership-email" name="partnership-email" placeholder="Enter email" required>
-                </div>
-
-                <!-- Phone -->
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter number" required>
-                </div>
-
-                <!-- Proposal -->
-                <div class="mb-3">
-                    <label for="proposal" class="form-label">Partnership proposal<span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="proposal" name="proposal" rows="4" placeholder="Tell us how we should partner together" required></textarea>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="form-btn">Submit Form</button>
-            </form>
-        </dialog>
-        <!---------- END OF FORM CONTENT ---------->
-
-        <!---------- START OF SMOOTH SCROLL BUTTON ---------->
-        <div id="progress">
-            <span id="progress-value"><i class="fa-solid fa-arrow-up"></i></span>
+          <!-- Changed anchors to buttons to avoid page jump and for better semantics -->
+          <button type="button" class="tile" id="feedbackTrigger" aria-haspopup="dialog" aria-controls="feedbackDialog">
+            <i class="fa-solid fa-comment" aria-hidden="true"></i>
+            <p>Contact Me</p>
+          </button>
+          <button type="button" class="tile" id="partnershipTrigger" aria-haspopup="dialog" aria-controls="partnershipDialog">
+            <i class="fa-solid fa-handshake-simple" aria-hidden="true"></i>
+            <p>Partner With Me</p>
+          </button>
+          <a href="/files/Marissa-Saunders-Resume.pdf" class="tile" download role="button">
+            <i class="fa-solid fa-download" aria-hidden="true"></i>
+            <p>Get My Resume</p>
+          </a>
         </div>
-        <!---------- END OF SMOOTH SCROLL BUTTON ---------->
+      </div>
+    </main>
 
-        <!---------- INCLUDING FOOTER.HTML ---------->
-        <div data-include="footer.html"></div>
+    <!---------- END OF MAIN CONTENT ---------->
 
-        <!---------- DO NOT EDIT ANYTHING BELOW THIS LINE ---------->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="/js/include.js"></script>
-        <script src="/js/site-scripts.min.js" defer></script>
-    </body>
+    <!------------ Contact Me Dialog ------------>
+    <dialog id="feedbackDialog" aria-labelledby="feedbackDialogTitle">
+      <form id="feedbackForm" class="needs-validation" novalidate method="post" action="#">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h3 id="feedbackDialogTitle" class="no-bottom-margin h5">
+            Leave a comment
+          </h3>
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="feedbackClose" aria-label="Close dialog">
+            Close
+          </button>
+        </div>
+        <small class="text-danger d-block mb-3">All fields are required</small>
+        <input type="hidden" name="formType" value="feedbackForm" />
+
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="feedback-name" class="form-label">Name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="feedback-name" name="name" placeholder="Enter full name" autocomplete="name" required />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="feedback-email" class="form-label">Email<span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="feedback-email" name="email" placeholder="Enter email" autocomplete="email" required />
+        </div>
+
+        <!-- Comments -->
+        <div class="mb-3">
+          <label for="feedback-comments" class="form-label">Comments<span class="text-danger">*</span></label>
+          <textarea class="form-control" id="feedback-comments" name="comments" rows="4" placeholder="What's on your mind" required></textarea>
+        </div>
+
+        <!-- Can we contact you? -->
+        <fieldset class="mb-3">
+          <legend class="form-label mb-1">
+            Can we contact you about your comments?<span class="text-danger"
+              >*</span>
+          </legend>
+          <div class="radio-group d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="contactChoice" value="Yes" id="contact-yes" required />
+              <label class="form-check-label" for="contact-yes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="contactChoice" value="No" id="contact-no" />
+              <label class="form-check-label" for="contact-no">No</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Actions -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Submit Form</button>
+          <button type="button" class="btn btn-outline-secondary" id="feedbackCancel">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!------------ Partnership Dialog ------------>
+    <dialog id="partnershipDialog" aria-labelledby="partnershipDialogTitle">
+      <form id="partnershipForm" class="needs-validation" novalidate method="post" action="#">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h3 id="partnershipDialogTitle" class="no-bottom-margin h5">
+            Partnership Proposal
+          </h3>
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="partnershipClose" aria-label="Close dialog">
+            Close
+          </button>
+        </div>
+        <small class="text-danger d-block mb-3">All fields are required</small>
+        <input type="hidden" name="formType" value="partnershipForm" />
+
+        <!-- Company Name -->
+        <div class="mb-3">
+          <label for="companyName" class="form-label">Company name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter company name" autocomplete="organization" required />
+        </div>
+
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="partner-name" class="form-label">Name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="partner-name" name="name" placeholder="Enter full name" autocomplete="name" required />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="partner-email" class="form-label">Email<span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="partner-email" name="email" placeholder="Enter email" autocomplete="email" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+          <label for="partner-phone" class="form-label">Phone<span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" id="partner-phone" name="phone" placeholder="Enter number" autocomplete="tel" required />
+        </div>
+
+        <!-- Proposal -->
+        <div class="mb-3">
+          <label for="partner-proposal" class="form-label">Partnership proposal<span class="text-danger">*</span></label>
+          <textarea class="form-control" id="partner-proposal" name="proposal" rows="4" placeholder="Tell us how we should partner together" required></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Submit Form</button>
+          <button type="button" class="btn btn-outline-secondary" id="partnershipCancel">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!---------- START OF TO TOP SMOOTH SCROLL BUTTON ---------->
+    <div id="progress" aria-hidden="true">
+      <span id="progress-value"
+        ><i class="fa-solid fa-arrow-up" aria-hidden="true"></i
+      ></span>
+    </div>
+
+    <!---------- END OF TO TOP SMOOTH SCROLL BUTTON ---------->
+
+    <!---------- INCLUDING FOOTER.HTML ---------->
+    <div data-include="footer.html"></div>
+
+    <!---------- SCRIPTS ---------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+    <!-- Defer non-critical custom scripts -->
+    <script src="/js/include.js" defer></script>
+    <script src="/js/site-scripts.min.js" defer></script>
+  </body>
 </html>
